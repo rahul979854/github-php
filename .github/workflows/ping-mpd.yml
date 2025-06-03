@@ -1,0 +1,17 @@
+name: Auto Refresh MPD Page
+
+on:
+  schedule:
+    - cron: "*/1 * * * *"  # Every 1 minute
+  workflow_dispatch:       # Optional: allows manual run
+
+jobs:
+  ping-url:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping update-mpd.php
+        run: |
+          for i in {1..20}; do
+            curl -s https://mpdchecker.updatesbyrahul.site/update-mpd.php > /dev/null
+            sleep 3
+          done
